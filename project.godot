@@ -1,0 +1,47 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="GOLEM DE HIELO"
+run/main_scene="res://scenes/test.tscn"
+config/features=PackedStringArray("4.5", "GL Compatibility")
+config/icon="res://icon.svg"
+
+[autoload]
+
+global="*res://scripts/global.gd"
+musica="*res://scripts/musica.gd"
+xy="*res://scripts/xy.gd"
+
+[display]
+
+window/stretch/mode="viewport"
+
+[global_group]
+
+estrella="proyectiles"
+consumibles=""
+disco=""
+
+[layer_names]
+
+2d_physics/layer_1="golem"
+2d_physics/layer_2="enemigo"
+2d_physics/layer_3="escenario"
+2d_physics/layer_4="estrellas_golem"
+2d_physics/layer_5="objeto"
+2d_physics/layer_6="consumible"
+2d_physics/layer_8="Capa 8"
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"

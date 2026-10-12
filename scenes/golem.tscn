@@ -1,0 +1,176 @@
+[gd_scene load_steps=12 format=3 uid="uid://hk8c5yf17us0"]
+
+[ext_resource type="Script" uid="uid://dud6afxg1oyyv" path="res://scripts/golem.gd" id="1_6fya6"]
+[ext_resource type="Texture2D" uid="uid://p3e5mgp3ko3a" path="res://texturas/golem.png" id="1_gnfrb"]
+[ext_resource type="Script" uid="uid://fwed5vtdrxos" path="res://scripts/golem_detecta_daño.gd" id="3_u0guc"]
+[ext_resource type="Script" uid="uid://cni5jt0s1qxjp" path="res://scripts/contadores_golem.gd" id="3_w3tsi"]
+[ext_resource type="Script" uid="uid://c0vew8h66tn1y" path="res://sonido/golem_sonidos.gd" id="4_22jjw"]
+[ext_resource type="AudioStream" uid="uid://dor2fynw8hcee" path="res://sonido/hielo.ogg" id="5_bko2c"]
+[ext_resource type="Texture2D" uid="uid://bcbrh1nkv51qm" path="res://texturas/elixir.png" id="6_bko2c"]
+[ext_resource type="Texture2D" uid="uid://cswsrcq651yvo" path="res://texturas/objetos/holder.png" id="8_fxrhl"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6fya6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fxrhl"]
+radius = 20.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_u0guc"]
+radius = 51.47815
+
+[node name="golem" type="CharacterBody2D"]
+collision_mask = 4
+script = ExtResource("1_6fya6")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("1_gnfrb")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, 27)
+shape = SubResource("RectangleShape2D_6fya6")
+debug_color = Color(0.9271941, 3.9467217e-05, 0.6714528, 0.41960785)
+
+[node name="detecta_daño" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+script = ExtResource("3_u0guc")
+
+[node name="hitbox" type="CollisionShape2D" parent="detecta_daño"]
+shape = SubResource("CircleShape2D_fxrhl")
+debug_color = Color(0.97852105, 0, 0.39929488, 0.41960785)
+
+[node name="estados" type="RichTextLabel" parent="."]
+offset_left = -17.0
+offset_top = -69.0
+offset_right = 83.0
+offset_bottom = 31.0
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "0.0"
+script = ExtResource("3_w3tsi")
+
+[node name="sonidos" type="Node" parent="."]
+script = ExtResource("4_22jjw")
+
+[node name="hielo" type="AudioStreamPlayer" parent="sonidos"]
+stream = ExtResource("5_bko2c")
+
+[node name="gui" type="CanvasLayer" parent="."]
+
+[node name="vida" type="HBoxContainer" parent="gui"]
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="elixir" type="TextureRect" parent="gui/vida"]
+layout_mode = 2
+texture = ExtResource("6_bko2c")
+
+[node name="inventario" type="HBoxContainer" parent="gui"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -200.5
+offset_right = 53.0
+offset_bottom = 200.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="contenedortextura" type="BoxContainer" parent="gui/inventario"]
+layout_mode = 2
+
+[node name="textura" type="VBoxContainer" parent="gui/inventario/contenedortextura"]
+layout_mode = 2
+
+[node name="slot1" type="TextureRect" parent="gui/inventario/contenedortextura/textura"]
+layout_mode = 2
+texture = ExtResource("8_fxrhl")
+
+[node name="slot2" type="TextureRect" parent="gui/inventario/contenedortextura/textura"]
+layout_mode = 2
+texture = ExtResource("8_fxrhl")
+
+[node name="slot3" type="TextureRect" parent="gui/inventario/contenedortextura/textura"]
+layout_mode = 2
+texture = ExtResource("8_fxrhl")
+
+[node name="contenedortexto" type="VBoxContainer" parent="gui/inventario/contenedortextura"]
+layout_mode = 2
+
+[node name="fondo1" type="ColorRect" parent="gui/inventario/contenedortextura/contenedortexto"]
+custom_minimum_size = Vector2(311, 131)
+layout_mode = 2
+
+[node name="texto" type="Label" parent="gui/inventario/contenedortextura/contenedortexto/fondo1"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "COSO"
+
+[node name="fondo2" type="ColorRect" parent="gui/inventario/contenedortextura/contenedortexto"]
+custom_minimum_size = Vector2(311, 131)
+layout_mode = 2
+
+[node name="texto" type="Label" parent="gui/inventario/contenedortextura/contenedortexto/fondo2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "COSO"
+
+[node name="fondo3" type="ColorRect" parent="gui/inventario/contenedortextura/contenedortexto"]
+custom_minimum_size = Vector2(311, 131)
+layout_mode = 2
+
+[node name="texto" type="Label" parent="gui/inventario/contenedortextura/contenedortexto/fondo3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "COSO"
+
+[node name="recoleccion_objetos" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="hitbox" type="CollisionShape2D" parent="recoleccion_objetos"]
+shape = SubResource("CircleShape2D_u0guc")
+debug_color = Color(0.2196663, 0.6393463, 0, 0.41960785)
+
+[connection signal="body_entered" from="detecta_daño" to="." method="_estrella"]
+[connection signal="body_entered" from="recoleccion_objetos" to="." method="_recoger_objeto"]

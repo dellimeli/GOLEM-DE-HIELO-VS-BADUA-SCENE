@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://gfjx2y7k4ebk"]
+
+[ext_resource type="Script" uid="uid://b7mr024d6j6v4" path="res://scripts/area_optima.gd" id="1_fyw5s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xp6wl"]
+size = Vector2(1152, 648)
+
+[node name="area_optima" type="Area2D"]
+collision_layer = 0
+collision_mask = 58
+monitorable = false
+script = ExtResource("1_fyw5s")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(576, 324)
+shape = SubResource("RectangleShape2D_xp6wl")
+debug_color = Color(0.8746969, 0.0004408777, 0.83906096, 0.41960785)

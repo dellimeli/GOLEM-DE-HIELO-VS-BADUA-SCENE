@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://cf6u6s8ws71t1"]
+
+[ext_resource type="Script" uid="uid://bkh3j1drrc2xx" path="res://scripts/furia.gd" id="1_fthq0"]
+[ext_resource type="Texture2D" uid="uid://cyl3ib3h6k27q" path="res://texturas/furia.png" id="2_tv1up"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lt2bw"]
+size = Vector2(48, 49)
+
+[node name="furia" type="Area2D" groups=["consumibles"]]
+collision_layer = 32
+script = ExtResource("1_fthq0")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_tv1up")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_lt2bw")
+
+[connection signal="body_entered" from="." to="." method="_golem_entro"]

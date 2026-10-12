@@ -1,0 +1,30 @@
+[gd_scene load_steps=6 format=3 uid="uid://dq4nlvlbao84a"]
+
+[ext_resource type="Script" uid="uid://lu3ephj57uy0" path="res://scripts/estrella.gd" id="1_w7u1q"]
+[ext_resource type="Texture2D" uid="uid://cj1umqjsdagcq" path="res://texturas/estrella_media.png" id="2_xxlrr"]
+[ext_resource type="AudioStream" uid="uid://cuckfxvackan8" path="res://sonido/estrella_tirar.ogg" id="3_xxlrr"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ft11m"]
+radius = 22.0
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ft11m"]
+random_pitch = 1.21
+streams_count = 1
+stream_0/stream = ExtResource("3_xxlrr")
+
+[node name="estrella" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 4
+mass = 0.4
+script = ExtResource("1_w7u1q")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_xxlrr")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ft11m")
+
+[node name="EstrellaTirar" type="AudioStreamPlayer" parent="." groups=["estrella"]]
+stream = SubResource("AudioStreamRandomizer_ft11m")
+volume_db = -5.195
+autoplay = true

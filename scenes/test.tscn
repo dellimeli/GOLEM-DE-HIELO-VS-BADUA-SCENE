@@ -1,0 +1,84 @@
+[gd_scene load_steps=10 format=3 uid="uid://bqnf2i85bd4jh"]
+
+[ext_resource type="PackedScene" uid="uid://hk8c5yf17us0" path="res://scenes/golem.tscn" id="1_bl13t"]
+[ext_resource type="Script" uid="uid://dp8i772qclaqk" path="res://scripts/clases/drop.gd" id="2_74lek"]
+[ext_resource type="Texture2D" uid="uid://n52ekvf0jkif" path="res://texturas/iuppi2.png" id="2_bl13t"]
+[ext_resource type="Texture2D" uid="uid://cy4ijo8lrqxkq" path="res://texturas/objetos/carlos.png" id="3_j5jx5"]
+[ext_resource type="PackedScene" uid="uid://cf6u6s8ws71t1" path="res://scenes/furia.tscn" id="5_j5jx5"]
+
+[sub_resource type="GDScript" id="GDScript_bl13t"]
+resource_name = "test"
+script/source = "extends Node2D
+
+const furia: PackedScene = preload('res://scenes/furia.tscn')
+var furioso: Area2D
+
+var timer: float = 0.0
+
+
+
+func _process(delta: float) -> void:
+	
+	if furioso != null: return
+	
+	timer += delta
+	
+	if timer >= 4.0:
+		furioso = furia.instantiate()
+		furioso.global_position = Vector2(576, 552)
+		add_child.call_deferred(furioso)
+		timer = 0.0
+"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_74lek"]
+size = Vector2(15171, 62)
+
+[sub_resource type="GDScript" id="GDScript_iyx0m"]
+script/source = "extends Disco
+
+
+func _ready() -> void:
+	
+	while global.golem == null:
+		await get_tree().process_frame 
+	
+	while global.golem.estado != global.golem.estados.muerto:
+		
+		
+		if global.golem.funcionar:
+			_tirar_a_golem(900)
+		
+		await get_tree().create_timer(1.0).timeout
+"
+
+[sub_resource type="Resource" id="Resource_lpvoh"]
+script = ExtResource("2_74lek")
+nombre = &"carlos"
+textura = ExtResource("3_j5jx5")
+metadata/_custom_type_script = "uid://dp8i772qclaqk"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource("GDScript_bl13t")
+
+[node name="golem" parent="." instance=ExtResource("1_bl13t")]
+position = Vector2(112, 511)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(7586.5, 617)
+shape = SubResource("RectangleShape2D_74lek")
+
+[node name="Disco" type="Node2D" parent="." groups=["disco"]]
+position = Vector2(675, 276)
+script = SubResource("GDScript_iyx0m")
+nombre = &"iuppi_2"
+drops = Array[ExtResource("2_74lek")]([SubResource("Resource_lpvoh")])
+metadata/_custom_type_script = "uid://qouaaaxtj0ki"
+
+[node name="Icon" type="Sprite2D" parent="Disco"]
+texture = ExtResource("2_bl13t")
+
+[node name="furia" parent="." instance=ExtResource("5_j5jx5")]
+position = Vector2(857, 247)
